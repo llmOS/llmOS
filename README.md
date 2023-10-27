@@ -9,17 +9,16 @@ During the test period, API usage is free.
 
 ### Using with `autogen`
 
-To enable this model in Autogen, add this model configuration into your `OAI_CONFIG_LIST.json`.
+To enable this model in Autogen, add this model configuration entry into your `OAI_CONFIG_LIST`.
 
 You do not need to fill in the API key.
 
 ```json
-CONFIG_LIST = [
-    {
-        'model': "gpt-4",
-        'api_key': "",
-        "api_base": "https://llm.sidekik.ai/v1",
-    },
+{
+    "model": "gpt-4",
+    "api_key": "",
+    "api_base": "https://llm.sidekik.ai/v1",
+}
 ```
 
 ### Using with `langchain`
