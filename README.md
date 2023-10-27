@@ -27,7 +27,7 @@ You do not need to fill in the API key.
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import AIMessage, HumanMessage, SystemMessage
 
-chat = ChatOpenAI(temperature=0, openai_api_base="https://llm.sidekik.ai/v1")
+chat = ChatOpenAI(temperature=0, openai_api_base="https://llm.sidekik.ai/v1", openai_api_key="-")
 
 messages = [
     SystemMessage(
