@@ -1,25 +1,13 @@
-# LLM router
+# llmOS
 
-The LLM router is an API that reduces cost by dynamically switching between gpt-4 and gpt-3.5-turbo while retaining quality.
+llmOS is a free, blazing-fast LLM API running the [Mistral 7B Instruct model](https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1).
 
-The API is a drop-in replacement for OpenAI's chat completion endpoints. To start using it, all you need to do is to set the OpenAI API base URL to `https://llm.sidekik.ai/v1`, no API key needed.
+The API is a drop-in replacement for OpenAI's chat completion endpoints. To start using it, all you need to do is to set the OpenAI API base URL to `https://api.llmos.dev/v1` and grab your API key [here](https://llmos.dev).
+
+The API will be open-sourced in the future under the [llmOS](https://github.com/llmOS) org.
 
 During the test period, API usage is free.
 
-
-### Using with `autogen`
-
-To enable this model in Autogen, add this model configuration entry into your `OAI_CONFIG_LIST`.
-
-You do not need to fill in the API key.
-
-```json
-{
-    "model": "gpt-4",
-    "api_key": "",
-    "api_base": "https://llm.sidekik.ai/v1",
-}
-```
 
 ### Using with `langchain`
 
@@ -27,7 +15,11 @@ You do not need to fill in the API key.
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import AIMessage, HumanMessage, SystemMessage
 
-chat = ChatOpenAI(temperature=0, openai_api_base="https://llm.sidekik.ai/v1", openai_api_key="-")
+chat = ChatOpenAI(temperature=0,
+                    model="mistral-7b-instruct",
+                    openai_api_base="https://api.llmos.dev/v1",
+                    openai_api_key="YOUR_API_KEY_HERE"
+                    )
 
 messages = [
     SystemMessage(
@@ -49,10 +41,11 @@ print(result)
 ```python
 import openai
 
-openai.api_base_url = "https://llm.sidekik.ai/v1"
+openai.api_base = "https://api.llmos.dev/v1"
+openai.api_key = "YOUR_API_KEY_HERE"
 
 response = openai.ChatCompletion.create(
-    model = "gpt-3.5-turbo",
+    model = "mistral-7b-instruct",
     messages = [{"role": "user", "content": "Hello!"}]
 )
 
@@ -62,11 +55,25 @@ print(response)
 ### Using with `curl`
 
 ```bash
-curl https://llm.sidekik.ai/v1/chat/completions \
+curl https://api.llmos.dev/v1/chat/completions \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_API_KEY_HERE" \
   -d '{
-     "model": "gpt-3.5-turbo",
+     "model": "mistral-7b-instruct",
      "messages": [{"role": "user", "content": "Say this is a test!"}],
      "temperature": 0.7
    }'
+```
+
+
+### Using with `autogen`
+
+To enable this model in Autogen, add this model configuration entry into your `OAI_CONFIG_LIST`.
+
+```json
+{
+    "model": "mistral-7b-instruct",
+    "api_key": "YOUR_API_KEY_HERE",
+    "api_base": "https://api.llmos.dev/v1",
+}
 ```
